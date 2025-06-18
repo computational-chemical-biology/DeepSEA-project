@@ -125,9 +125,6 @@ def ParseFasta(path):
 def CreateTensor(ProteinSequences):
     return [" ".join(list(x)) for x in ProteinSequences]
 
-
-
-    
 def RunModel(ProteinsTensor, model_path):
     model = tf.keras.models.load_model(model_path)
 

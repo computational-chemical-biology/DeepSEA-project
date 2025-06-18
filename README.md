@@ -30,6 +30,18 @@ GPU environment:
 conda env create -f environment-gpu.yml 
 conda activate deepsea-project
 ```
+
+Test the installation:
+```
+python DeepSEA.py run --input test/test.fasta --outname run_test_file
+```
+
+```
+python DeepSEA.py features --input test/test.aln.fasta --outname feat_test_file
+```
+
+If everything is correct, a CSV and a PNG files shall appear.
+
 CPU environment:
 
 For cases in which there is no GPU available, there is an option to use DeepSEA in Google Colab
@@ -37,13 +49,19 @@ For cases in which there is no GPU available, there is an option to use DeepSEA 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tiagocabralborelli/DeepSEA-project/blob/main/DeepSEA.ipynb)
 
 # Usage
-Test the installation:
-```
-python DeepSEA.py run --input test/test.fasta --outname test_file
-```
-If everything is correct, a CSV file shall appear.
 
-**Command: run**
+
+## **Antimicrobial resistance proteins annotation**
+
+Use the comand <span style="background-color: #f0f0f0; color: #333; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-family: monospace;">run</span>  to identify proteins that confer resistant phenotypes. The user must input a protein FASTA file. 
+
+**Considerations on the input data**:
+
+- DeepSEA was originally trained on proteins composed by the 20 canonical amino acids, therefore proteins with ambiguous representations will be removed.
+
+- Some protein-prediction tools represent stop codons with "*". Make sure to clean your data before the annotation step.   
+
+
 ```
 python DeepSEA.py run --input /path/to/fasta --outname file_name
 
@@ -51,7 +69,10 @@ Options:
   --input TEXT   Path to input fasta file
   --outname     Output file name
 ```
-**Command: features**
+
+## **Identifying important regions in multiple sequence alignment**
+
+The command  <span style="background-color: #f0f0f0; color: #333; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-family: monospace;">features</span> recives an alignment file in **FASTA** format and highlights important regions of each protein in a heatmap. Since DeepSEA can't modify the alignment, make sure there are no proteins with non-canonical amino acids in it.    
 
 DeepSEA can be employed on multiple sequence alignment analysis to reveal regions of interest. 
 ```
@@ -61,3 +82,5 @@ Options:
   --input TEXT   Path to input: a multiple sequence alignment in fasta format
   --outname     Output file name
 ```
+
+
